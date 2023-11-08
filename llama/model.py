@@ -280,43 +280,44 @@ class FunctionLM(nn.Module):
 
         # inputs: starts with <bos>, ends without <eos>, (bsz, seqlen)
         # labels: starts without <bos>, ends with <eos>, (bsz, seqlen)
-        with torch.no_grad():
-            # prompt_tokens = [self.tokenizer.encode(x, bos=True, eos=True) for x in raw_inputs]
+        # with torch.no_grad():
+        # prompt_tokens = [self.tokenizer.encode(x, bos=True, eos=True) for x in raw_inputs]
 
-            raw_input_ids = torch.tensor(self.tokenizer.encode(raw_inputs["text"], bos=True, eos=True))[:]
-            labels = torch.tensor(self.tokenizer.encode(raw_inputs["text"], bos=True, eos=True))[:]
+        raw_input_ids = torch.tensor(self.tokenizer.encode(raw_inputs["text"], bos=True, eos=True))[:]
+        labels = torch.tensor(self.tokenizer.encode(raw_inputs["text"], bos=True, eos=True))[:]
 
-            if "tar_eq" not in raw_inputs:
-                raw_inputs["tar_eq"] = ["<" + raw_inputs["api"] + ">"]
+        if "tar_eq" not in raw_inputs:
+            raw_inputs["tar_eq"] = ["<" + raw_inputs["api"] + ">"]
 
-            for s, t, eq in zip(raw_inputs["start_token_idx"], raw_inputs["end_token_idx"], raw_inputs["tar_eq"]):
-                
-                # for different data formats
-                if "[" in eq:
-                    op = re.search(r"(\[.*?\])", eq).group(1)
-                elif "<" in eq:
-                    op = re.search(r"(<.*?>)", eq).group(1)
-                    # print(op)
+        for s, t, eq in zip(raw_inputs["start_token_idx"], raw_inputs["end_token_idx"], raw_inputs["tar_eq"]):
 
-                if op not in self.func_dict:
-                    op = op[1:-1]
-                labels[s] = self.func_dict[op] + 32000
-                labels[s+1: t] = -100
-            
-            # labels = labels[1:]
-            if only_functoken:
-                labels[labels < 32000] = -100
-            inputs = raw_input_ids[:-1].expand(1, -1).to("cuda")
-            labels = labels[1:].expand(1, -1).to("cuda")
+            # for different data formats
+            if "[" in eq:
+                op = re.search(r"(\[.*?\])", eq).group(1)
+            elif "<" in eq:
+                op = re.search(r"(<.*?>)", eq).group(1)
+                # print(op)
 
-            last_logits, h = self.model(inputs, 0) # h: (bsz, seqlen, dim)
-            token_logits = self.model.output(h) # (bsz, seqlen, vocab_size)
-            # print(h.device)
+            if op not in self.func_dict:
+                op = op[1:-1]
+            labels[s] = self.func_dict[op] + 32000
+            labels[s+1: t] = -100
+
+        # labels = labels[1:]
+        if only_functoken:
+            labels[labels < 32000] = -100
+        inputs = raw_input_ids[:-1].expand(1, -1).to("cuda")
+        labels = labels[1:].expand(1, -1).to("cuda")
+
+        last_logits, h = self.model(inputs, 0) # h: (bsz, seqlen, dim)
+        token_logits = self.model.output(h) # (bsz, seqlen, vocab_size)
+        # print(h.device)
         
         func_logits = self.func_embed(h.float()) # (bsz, seqlen, len(func_list))
         
         concat_logits = torch.cat([token_logits, func_logits], dim=-1) # (bsz, seqlen, vocab_size + len(func_list))
         loss = F.cross_entropy(concat_logits.view(-1, concat_logits.shape[-1]), labels.view(-1), ignore_index=-100)
+
         # check p, r, f1 for each function
         pred = torch.argmax(concat_logits, dim=-1) # (bsz, seqlen)
         pred = pred.view(-1)

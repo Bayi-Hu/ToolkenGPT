@@ -20,12 +20,10 @@ from llama import ModelArgs, Transformer, Tokenizer, FunctionLM
 def setup_model_parallel() -> Tuple[int, int]:
     local_rank = int(os.environ.get("LOCAL_RANK", -1))
     world_size = int(os.environ.get("WORLD_SIZE", -1))
-
     torch.distributed.init_process_group("nccl")
     initialize_model_parallel(world_size)
     torch.cuda.set_device(local_rank)
     return local_rank, world_size
-
 
 def load(ckpt_dir: str, tokenizer_path: str, local_rank: int, world_size: int, func_dict: dict) -> FunctionLM:
     start_time = time.time()
@@ -52,7 +50,16 @@ def load(ckpt_dir: str, tokenizer_path: str, local_rank: int, world_size: int, f
     return funcmodel
 
 
-def main(ckpt_dir: str, tokenizer_path: str, input_file: str = None, lr: float = 1e-3, num_epochs: int = 20, dataset: str = "gsm8k-xl", log_prefix="", only_functoken=False, log_each=False):
+def main(ckpt_dir: str,
+         tokenizer_path: str,
+         input_file: str,
+         dataset: str,
+         lr: float = 1e-3,
+         num_epochs: int = 20,
+         log_prefix="",
+         only_functoken=False,
+         log_each=False
+         ):
 
     torch.manual_seed(1)
     torch.cuda.manual_seed_all(1)
@@ -66,6 +73,7 @@ def main(ckpt_dir: str, tokenizer_path: str, input_file: str = None, lr: float =
     func_dict = json.load(open(func_dict_path, "r"))
 
     local_rank, world_size = setup_model_parallel()
+
     if local_rank > 0:
         sys.stdout = open(os.devnull, 'w')
 
@@ -78,7 +86,7 @@ def main(ckpt_dir: str, tokenizer_path: str, input_file: str = None, lr: float =
     if input_file.endswith(".json"):
         with open(input_file, "r") as f:
             prompts = json.load(f)
-    
+
     else:
         with open(input_file, "r") as f:
             prompts = f.readlines()
@@ -110,7 +118,8 @@ def main(ckpt_dir: str, tokenizer_path: str, input_file: str = None, lr: float =
         results = defaultdict(list)
         
         random.shuffle(trainset)
-        for case_idx, prompt in tqdm(enumerate(trainset)):
+        pbar = tqdm(total=len(trainset))
+        for case_idx, prompt in enumerate(trainset):
             funcmodel.train()
             
             optimizer.zero_grad()
@@ -148,16 +157,21 @@ def main(ckpt_dir: str, tokenizer_path: str, input_file: str = None, lr: float =
             
             if local_rank == 0:
                 wandb.log({"loss": loss.item()})
+
+            pbar.update(1)
         
         # test on validation set
         results = defaultdict(list)
-        for case_idx, prompt in tqdm(enumerate(testset)):
+        pbar = tqdm(total=len(testset))
+        for case_idx, prompt in enumerate(testset):
             funcmodel.eval()
             with torch.no_grad():
                 loss, result = funcmodel.get_loss([prompt])
             
             for i, r in result.items():
                 results[i].append(r)
+
+            pbar.update(1)
             
         for i in range(len(func_list) + 1):
             if i != len(func_list):
