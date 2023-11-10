@@ -2,16 +2,30 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="44e43b18-d9a9-4bba-b3cd-6a96fc2df1cc" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/evaluation/eval_funcqa.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/llama-2-13b/special_tokens_map.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/llama-2-13b/tokenizer.model" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/llama-2-13b/tokenizer.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/llama-2-13b/tokenizer_config.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/ToolkenGPT.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ToolkenGPT.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inference_llama.py" beforeDir="false" afterPath="$PROJECT_DIR$/inference_llama.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/llama/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/llama/model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_llama.py" beforeDir="false" afterPath="$PROJECT_DIR$/train_llama.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="FlaskConsoleOptions" custom-start-script="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))">
     <envs>
@@ -51,11 +65,80 @@
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/outputs/funcqa_oh" />
+      <recent name="$PROJECT_DIR$/llama-2-13b" />
       <recent name="$PROJECT_DIR$/llama-2-7b" />
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.eval_funcqa">
+    <configuration name="eval_funcqa" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="ToolkenGPT" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/evaluation" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/evaluation/eval_funcqa.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="inference_llama" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="ToolkenGPT" />
+      <option name="INTERPRETER_OPTIONS" value="-m torch.distributed.run --nproc_per_node=1" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="CUDA_VISIBLE_DEVICES" value="3" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/inference_llama.py" />
+      <option name="PARAMETERS" value="--master_port 1250 --ckpt_dir /home/sihao/ToolkenGPT/llama-2-7b/ --tokenizer_path /home/sihao/ToolkenGPT/llama-2-7b/tokenizer.model --mode func_embedding --dataset funcqa_oh --func_load_path checkpoints/llama-2-7b_funcqa_0.0001_0.pth --logits_bias 2.7" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="model" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="ToolkenGPT" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/llama" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/llama/model.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="train_llama" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="ToolkenGPT" />
       <option name="INTERPRETER_OPTIONS" value="-m torch.distributed.run --nproc_per_node=1" />
@@ -71,7 +154,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/train_llama.py" />
-      <option name="PARAMETERS" value="--ckpt_dir /home/sihao/ToolkenGPT/llama-2-7b/ --tokenizer_path /home/sihao/ToolkenGPT/llama-2-7b/tokenizer.model --input_file data/funcqa/train.json --dataset funcqa --lr 1e-4 --num_epochs 1" />
+      <option name="PARAMETERS" value="--ckpt_dir /home/sihao/ToolkenGPT/llama-2-7b-chat/ --tokenizer_path /home/sihao/ToolkenGPT/llama-2-7b-chat/tokenizer.model --input_file data/funcqa/train.json --dataset funcqa --lr 1e-4 --num_epochs 10" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -79,9 +162,18 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Python.eval_funcqa" />
+      <item itemvalue="Python.inference_llama" />
+      <item itemvalue="Python.model" />
+      <item itemvalue="Python.train_llama" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.eval_funcqa" />
+        <item itemvalue="Python.inference_llama" />
         <item itemvalue="Python.train_llama" />
+        <item itemvalue="Python.model" />
       </list>
     </recent_temporary>
   </component>
@@ -107,34 +199,42 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/train_llama.py</url>
-          <line>168</line>
-          <option name="timeStamp" value="9" />
+          <url>file://$PROJECT_DIR$/inference_llama.py</url>
+          <line>67</line>
+          <option name="timeStamp" value="52" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/inference_llama.py</url>
+          <line>116</line>
+          <option name="timeStamp" value="55" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/inference_llama.py</url>
+          <line>40</line>
+          <option name="timeStamp" value="56" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/llama/model.py</url>
-          <line>245</line>
-          <option name="timeStamp" value="24" />
+          <line>345</line>
+          <option name="timeStamp" value="67" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/llama/model.py</url>
-          <line>285</line>
-          <option name="timeStamp" value="30" />
+          <url>file://$PROJECT_DIR$/evaluation/eval_funcqa.py</url>
+          <line>38</line>
+          <option name="timeStamp" value="81" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/llama/model.py</url>
-          <line>315</line>
-          <option name="timeStamp" value="31" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/train_llama.py</url>
-          <line>109</line>
-          <option name="timeStamp" value="36" />
+          <url>file://$PROJECT_DIR$/evaluation/eval_funcqa.py</url>
+          <line>79</line>
+          <option name="timeStamp" value="93" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/ToolkenGPT$train_llama.coverage" NAME="train_llama Coverage Results" MODIFIED="1699477293070" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ToolkenGPT$model.coverage" NAME="model Coverage Results" MODIFIED="1699500599923" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/llama" />
+    <SUITE FILE_PATH="coverage/ToolkenGPT$inference_llama.coverage" NAME="inference_llama Coverage Results" MODIFIED="1699629061551" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ToolkenGPT$train_llama.coverage" NAME="train_llama Coverage Results" MODIFIED="1699626103211" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ToolkenGPT$eval_funcqa.coverage" NAME="eval_funcqa Coverage Results" MODIFIED="1699630767435" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/evaluation" />
   </component>
 </project>

@@ -47,12 +47,23 @@ def load(ckpt_dir: str, tokenizer_path: str, local_rank: int, world_size: int, f
     model = Transformer(model_args).cuda().half()
     torch.set_default_tensor_type(torch.FloatTensor)
     model.load_state_dict(checkpoint, strict=False)
-    funcmodel = FunctionLM(model, tokenizer, func_dict = func_dict, load_path=func_load_path)
+    funcmodel = FunctionLM(model, tokenizer, func_dict=func_dict, load_path=func_load_path)
     print(f"Loaded in {time.time() - start_time:.2f} seconds")
     return funcmodel
 
 
-def main(ckpt_dir: str, tokenizer_path: str, temperature: float = 0, top_p: float = 0.95, mode: str = "baseline", dataset = "original", return_top: int = 5, logits_bias: float = 0, func_load_path: str = "None", st_idx=0, ed_idx=10000, suffix=""):
+def main(ckpt_dir: str,
+         tokenizer_path: str,
+         temperature: float = 0,
+         top_p: float = 0.95,
+         mode: str = "baseline",
+         dataset = "original",
+         return_top: int = 5,
+         logits_bias: float = 0,
+         func_load_path: str = "None",
+         st_idx=0,
+         ed_idx=10000,
+         suffix=""):
     # set random seed
     torch.manual_seed(1)
     torch.cuda.manual_seed_all(1)
@@ -60,10 +71,14 @@ def main(ckpt_dir: str, tokenizer_path: str, temperature: float = 0, top_p: floa
     torch.backends.cudnn.benchmark = False
     random.seed(1)
     np.random.seed(1)
-    size = ckpt_dir.split("/")[-1]
     local_rank, world_size = setup_model_parallel()
     if local_rank > 0:
         sys.stdout = open(os.devnull, 'w')
+
+    for ckpt_version in func_load_path.split("/"):
+        if ".pth" in ckpt_version:
+            break
+    ckpt_version = ckpt_version.split(".pth")[0]
 
     templates = {}
     if dataset == "gsm8k-xl":
@@ -175,15 +190,10 @@ def main(ckpt_dir: str, tokenizer_path: str, temperature: float = 0, top_p: floa
             log = kamel_embedding_inference(templates, case_idx, question, funcmodel, temperature, top_p, max_gen_len, max_func_call)
 
         if local_rank == 0:
-            try:
-                func_model_name = func_load_path.split('/')[-1].split('.')[0]
-            except:
-                func_model_name = func_load_path
 
             output_dir = f"outputs/{dataset}"
             os.makedirs(output_dir, exist_ok=True)
-
-            with open(f"{output_dir}/inference-{size}-{func_model_name}-{mode}-{dataset}-bias_{logits_bias}{suffix}.jsonl", "a") as f:
+            with open(f"{output_dir}/{ckpt_version}_{mode}_{logits_bias}.jsonl", "a") as f:
                 f.write(json.dumps(log) + "\n")
 
 

@@ -369,7 +369,7 @@ class FunctionLM(nn.Module):
 
         # tokenize all the func in func_list
         func_tokens = [self.tokenizer.encode(x[1:-1], bos=False, eos=False) for x in func_list]
-        
+
         generation_log = [] # (token, [(token, logits, prob)])
         params = self.model.params
         assert bsz <= params.max_batch_size, (bsz, params.max_batch_size)
@@ -385,7 +385,7 @@ class FunctionLM(nn.Module):
         for k, t in enumerate(prompt_tokens):
             tokens[k, : len(t)] = torch.tensor(t).long()
         input_text_mask = tokens != self.tokenizer.pad_id
-        start_pos = min_prompt_size
+        start_pos = min_prompt_size # generate from the question start, instead of the start of the question.
         prev_pos = 0
         hs = []
         
@@ -440,7 +440,7 @@ class FunctionLM(nn.Module):
             try:
                 t = t[: t.index(self.tokenizer.eos_id)]
             except ValueError:
-                pass
+                pass # no end token, so the break of generation is because of the toolken or ) or =
             if t[cur_pos] >= 32000:
                 if no_left_parens:
                     decoded.append(self.tokenizer.decode(t[:cur_pos]) + self.func_list[t[cur_pos] - 32000])

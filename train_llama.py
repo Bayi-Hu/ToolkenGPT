@@ -56,7 +56,6 @@ def main(ckpt_dir: str,
          dataset: str,
          lr: float = 1e-3,
          num_epochs: int = 20,
-         log_prefix="",
          only_functoken=False,
          log_each=False
          ):
@@ -80,6 +79,10 @@ def main(ckpt_dir: str,
     if local_rank == 0:
         wandb.init(project="funcllama", name=f"{dataset}-{world_size}-load")
         # wandb.init(project="opt", name=save_name)
+
+    for model_version in ckpt_dir.split("/"):
+        if "llama" in model_version:
+            break
 
     funcmodel = load(ckpt_dir, tokenizer_path, local_rank, world_size, func_dict=func_dict)
     
@@ -196,9 +199,9 @@ def main(ckpt_dir: str,
                     })
 
         # save the parameters of func_embed every epoch
-        save_dir = f"checkpoints/{log_prefix}{dataset}/"
-        os.makedirs(save_dir, exist_ok=True)
-        torch.save(funcmodel.func_embed.state_dict(), f"{save_dir}/epoch_{epoch}.pth")
+        os.makedirs("checkpoints", exist_ok=True)
+        save_dir = f"checkpoints/{model_version}_{dataset}_{lr}_{epoch}.pth"
+        torch.save(funcmodel.func_embed.state_dict(), save_dir)
         results = defaultdict(list)
 
 if __name__ == "__main__":
