@@ -15,7 +15,7 @@ from pathlib import Path
 from fairscale.nn.model_parallel.initialize import initialize_model_parallel
 from tqdm import tqdm
 from llama import ModelArgs, Transformer, Tokenizer, FunctionLM
-from inference_modes import func_embedding_inference, kamel_embedding_inference, vh_embedding_inference
+from inference_modes import func_embedding_inference, kamel_embedding_inference, vh_embedding_inference, naive_inference, oracle_1_inference, oracle_2_inference
 from funchub.math import *
 
 
@@ -117,6 +117,7 @@ def main(ckpt_dir: str,
         max_gen_len = 512
         func_dict = json.load(open("data/funcqa/func_dict.json"))
         test_cases = [i["question"] for i in data]
+        func_oracles = list(map(lambda x: x.split("<")[1].split(">")[0], [i["func"] for i in data]))
 
     elif dataset == "vh":
         from vh_eval import get_desc
@@ -182,7 +183,13 @@ def main(ckpt_dir: str,
             continue
         if case_idx >= ed_idx:
             break
-        if mode == "func_embedding":
+        if mode == "baseline":
+            log = naive_inference(templates, case_idx, question, funcmodel, temperature, top_p, max_gen_len, return_top)
+        if mode == "oracle_1": # add the right context at the beginning
+            log = oracle_1_inference(func_oracles[case_idx], templates, case_idx, question, funcmodel, temperature, top_p, max_gen_len, return_top)
+        if mode == "oracle_2": # add the right context after the token is given. i.e., at the begining, use the general context, then switch to the tool context.
+            log = oracle_2_inference(func_oracles[case_idx], templates, case_idx, question, funcmodel, temperature, top_p, max_gen_len, return_top)
+        elif mode == "func_embedding":
             log = func_embedding_inference(templates, case_idx, question, funcmodel, temperature, top_p, max_gen_len, return_top)
         elif mode == "vh_embedding_inference":
             log = vh_embedding_inference(case_idx, question, funcmodel, temperature, top_p, max_func_call)

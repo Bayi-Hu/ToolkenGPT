@@ -2,11 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="44e43b18-d9a9-4bba-b3cd-6a96fc2df1cc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/gen_llama_embed.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/ToolkenGPT.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ToolkenGPT.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inference_llama.py" beforeDir="false" afterPath="$PROJECT_DIR$/inference_llama.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inference_modes.py" beforeDir="false" afterPath="$PROJECT_DIR$/inference_modes.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/train_llama.py" beforeDir="false" afterPath="$PROJECT_DIR$/train_llama.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -43,22 +44,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "true",
-    "WebServerToolWindowPanel.toolwindow.highlight.mappings": "true",
-    "WebServerToolWindowPanel.toolwindow.highlight.symlinks": "true",
-    "WebServerToolWindowPanel.toolwindow.show.date": "false",
-    "WebServerToolWindowPanel.toolwindow.show.permissions": "false",
-    "WebServerToolWindowPanel.toolwindow.show.size": "false",
-    "last_opened_file_path": "/Users/husihao/Documents/Project/ToolkenGPT",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.highlight.mappings&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.highlight.symlinks&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.show.date&quot;: &quot;false&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.show.permissions&quot;: &quot;false&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.show.size&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/husihao/Documents/Project/ToolkenGPT&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -70,7 +71,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.gen_llama_embed">
+  <component name="RunManager" selected="Python.inference_llama">
     <configuration name="eval_funcqa" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="ToolkenGPT" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -122,7 +123,7 @@
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
-        <env name="CUDA_VISIBLE_DEVICES" value="3" />
+        <env name="CUDA_VISIBLE_DEVICES" value="2" />
       </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -131,7 +132,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/inference_llama.py" />
-      <option name="PARAMETERS" value="--master_port 1250 --ckpt_dir /home/sihao/ToolkenGPT/llama-2-7b/ --tokenizer_path /home/sihao/ToolkenGPT/llama-2-7b/tokenizer.model --mode func_embedding --dataset funcqa_oh --func_load_path checkpoints/llama-2-7b_funcqa_0.0001_0.pth --logits_bias 2.7" />
+      <option name="PARAMETERS" value="--ckpt_dir /home/sihao/ToolkenGPT/llama-2-7b/ --tokenizer_path /home/sihao/ToolkenGPT/llama-2-7b/tokenizer.model --mode kamel_embedding_inference --dataset kamel_30 --func_load_path checkpoints/llama-2-7b_kamel_0.001_4_sync.pth --logits_bias 10" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -139,7 +140,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="model" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="inference_modes" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="ToolkenGPT" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -147,12 +148,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/llama" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/llama/model.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/inference_modes.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -167,7 +168,7 @@
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1 " />
-        <env name="CUDA_VISIBLE_DEVICES" value="3" />
+        <env name="CUDA_VISIBLE_DEVICES" value="0" />
       </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -176,7 +177,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/train_llama.py" />
-      <option name="PARAMETERS" value="--ckpt_dir /home/sihao/ToolkenGPT/llama-2-7b-chat/ --tokenizer_path /home/sihao/ToolkenGPT/llama-2-7b-chat/tokenizer.model --input_file data/funcqa/train.json --dataset funcqa --lr 1e-4 --num_epochs 10" />
+      <option name="PARAMETERS" value="--ckpt_dir /home/sihao/ToolkenGPT/llama-2-7b/ --tokenizer_path /home/sihao/ToolkenGPT/llama-2-7b/tokenizer.model --input_file data/kamel/kamel_id_train.json --only_function False --dataset kamel --num_epochs 10" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -185,19 +186,19 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Python.inference_modes" />
       <item itemvalue="Python.gen_llama_embed" />
       <item itemvalue="Python.eval_funcqa" />
       <item itemvalue="Python.inference_llama" />
-      <item itemvalue="Python.model" />
       <item itemvalue="Python.train_llama" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.inference_llama" />
+        <item itemvalue="Python.inference_modes" />
+        <item itemvalue="Python.train_llama" />
         <item itemvalue="Python.gen_llama_embed" />
         <item itemvalue="Python.eval_funcqa" />
-        <item itemvalue="Python.inference_llama" />
-        <item itemvalue="Python.train_llama" />
-        <item itemvalue="Python.model" />
       </list>
     </recent_temporary>
   </component>
@@ -213,6 +214,11 @@
       <workItem from="1699294752974" duration="24098000" />
       <workItem from="1699390378200" duration="5734000" />
       <workItem from="1699398312143" duration="4340000" />
+      <workItem from="1699656903652" duration="7188000" />
+      <workItem from="1699716531947" duration="3583000" />
+      <workItem from="1699732130176" duration="1512000" />
+      <workItem from="1699851040900" duration="40819000" />
+      <workItem from="1699975388680" duration="1185000" />
     </task>
     <servers />
   </component>
@@ -222,21 +228,6 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/inference_llama.py</url>
-          <line>67</line>
-          <option name="timeStamp" value="52" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/inference_llama.py</url>
-          <line>116</line>
-          <option name="timeStamp" value="55" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/inference_llama.py</url>
-          <line>40</line>
-          <option name="timeStamp" value="56" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/llama/model.py</url>
           <line>345</line>
@@ -262,14 +253,70 @@
           <line>71</line>
           <option name="timeStamp" value="98" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/train_llama.py</url>
+          <line>87</line>
+          <option name="timeStamp" value="100" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/train_llama.py</url>
+          <line>47</line>
+          <option name="timeStamp" value="101" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/llama/model.py</url>
+          <line>289</line>
+          <option name="timeStamp" value="107" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/llama/model.py</url>
+          <line>286</line>
+          <option name="timeStamp" value="108" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/llama/model.py</url>
+          <line>285</line>
+          <option name="timeStamp" value="109" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/inference_modes.py</url>
+          <line>173</line>
+          <option name="timeStamp" value="113" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/inference_modes.py</url>
+          <line>254</line>
+          <option name="timeStamp" value="114" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/inference_modes.py</url>
+          <line>231</line>
+          <option name="timeStamp" value="138" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/inference_modes.py</url>
+          <line>122</line>
+          <option name="timeStamp" value="139" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/inference_llama.py</url>
+          <line>190</line>
+          <option name="timeStamp" value="140" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/inference_modes.py</url>
+          <line>51</line>
+          <option name="timeStamp" value="141" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ToolkenGPT$model.coverage" NAME="model Coverage Results" MODIFIED="1699500599923" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/llama" />
-    <SUITE FILE_PATH="coverage/ToolkenGPT$inference_llama.coverage" NAME="inference_llama Coverage Results" MODIFIED="1699629061551" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ToolkenGPT$inference_llama.coverage" NAME="inference_llama Coverage Results" MODIFIED="1699972746711" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ToolkenGPT$gen_llama_embed.coverage" NAME="gen_llama_embed Coverage Results" MODIFIED="1699644384355" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/ToolkenGPT$train_llama.coverage" NAME="train_llama Coverage Results" MODIFIED="1699626103211" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ToolkenGPT$inference_modes.coverage" NAME="inference_modes Coverage Results" MODIFIED="1699971003408" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ToolkenGPT$train_llama.coverage" NAME="train_llama Coverage Results" MODIFIED="1699892867171" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ToolkenGPT$eval_funcqa.coverage" NAME="eval_funcqa Coverage Results" MODIFIED="1699631143228" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/evaluation" />
   </component>
 </project>

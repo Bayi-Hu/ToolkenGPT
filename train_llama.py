@@ -57,7 +57,8 @@ def main(ckpt_dir: str,
          lr: float = 1e-3,
          num_epochs: int = 20,
          only_functoken=False,
-         log_each=False
+         log_each=False,
+         bizdate: str=""
          ):
 
     torch.manual_seed(1)
@@ -200,7 +201,7 @@ def main(ckpt_dir: str,
 
         # save the parameters of func_embed every epoch
         os.makedirs("checkpoints", exist_ok=True)
-        save_dir = f"checkpoints/{model_version}_{dataset}_{lr}_{epoch}.pth"
+        save_dir = f"checkpoints/{model_version}_{dataset}_{lr}_{epoch}_{bizdate}.pth"
         torch.save(funcmodel.func_embed.state_dict(), save_dir)
         results = defaultdict(list)
 
